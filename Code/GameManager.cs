@@ -11,11 +11,11 @@ public sealed class GameManager : GameObjectSystem<GameManager>, IPlayerEvent, C
 
 	void ISceneStartup.OnHostInitialize()
 	{
-		//
-		// TODO: We don't have a menu, but if we did we could put a special component in the menu
-		// scene that we'd now be able to detect, and skip doing the stuff below.
-		//
-
+		if ( Scene.GetAllComponents<MenuScene>().ToArray().Length > 0 )
+		{
+			Log.Info( "Walker: Menu Scene component found, not initalizing player" );
+			return;
+		}
 		//
 		// Spawn the engine scene.
 		// This scene is sent to clients when they join.
